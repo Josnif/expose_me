@@ -14,33 +14,32 @@ const Home = () => {
                 options={{
                     headerStyle: { backgroundColor: COLORS.lightWhite },
                     headerShadowVisibile: false,
-                    headerLeft: () => {
+                    headerLeft: () => (
                         <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-                    },
-                    headerRight: () => {
-                        <ScreenHeaderBtn iconUrl={icons.profile} dimension="100%" />
-                    },
+                    ),
+                    headerRight: () => (
+                        <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+                    ),
                     headerTitle: ""
                 }}
-            >
-                <p>Testing</p>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View
-                        style={{
-                            flex: 1,
-                            padding: SIZES.medium
-                        }}
-                    >
-                        <Welcome 
-                        
-                        />
+            />
+            
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View
+                    style={{
+                        flex: 1,
+                        padding: SIZES.medium
+                    }}
+                >
+                    <Welcome 
+                    
+                    />
 
-                        <Popularjobs />
-                        <Nearbyjobs />
-                        
-                    </View>
-                </ScrollView>
-            </Stack.Screen>
+                    <Popularjobs />
+                    <Nearbyjobs />
+                    
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
