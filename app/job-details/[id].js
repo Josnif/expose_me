@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState, useCallback } from 'react'
 import { Text, View, SafeAreaView, ScrollView, ActivityIndicator, RefreshControl } from 'react-native'
 import { Stack, useRouter, useGlobalSearchParams } from 'expo-router'
 
@@ -18,20 +18,28 @@ const JobDetails = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
-    const onRefresh = () => {
-        console.log('refreshing');
-    }
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        refetch();
+        setRefreshing(false);
+    })
 
     const displayTabContent = () => {
         switch (activeTab) {
             case "Qualifications":
                 return <Specifics 
                     title="Qualifications"
-                    points={data[0].job_highlights?.qualifications ?? ['N/A']}
+                    points={data[0].job_highlights?.Qualifications ?? ['N/A']}
                 />
             case "About":
-                return <JobAbout />
+                return <JobAbout 
+                    info={data[0].job_description ?? 'No description provided'}
+                />
             case "Responsibilities": 
+                return <Specifics 
+                    title="Qualifications"
+                    points={data[0].job_highlights?.Responsibilities ?? ['N/A']}
+                />
             default:
                 break;
         }
@@ -92,6 +100,8 @@ const JobDetails = () => {
                         </View>
                     )}
                 </ScrollView>
+
+                <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results'} />
             </>
         </SafeAreaView>
     )
